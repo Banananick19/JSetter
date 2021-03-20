@@ -2,10 +2,12 @@ package banana;
 
 import org.ini4j.*;
 import java.io.*;
+import java.util.Map;
 
 
 public class RunnerConfig {
     protected static String default_config_path = "D:\\config.ini";
+
 
     public static void main(String[] args) throws IOException {
         //
@@ -23,6 +25,7 @@ public class RunnerConfig {
             }
         }
     }
+
     public void make_config(String config_name, String[] apps_dirs) throws IOException {
         Wini configs_ini = new Wini(new File(default_config_path));
 
@@ -31,6 +34,30 @@ public class RunnerConfig {
         }
         configs_ini.store();
     }
+
+    public void append_to_config(String config_name, String[] apps_dirs) throws IOException {
+        Wini configs_ini = new Wini(new File(default_config_path));
+
+        Map<String, String> apps = configs_ini.get(config_name);
+        System.out.println(apps);
+
+        int index = 0;
+
+        for (;;index++) {
+            if (apps.containsKey(String.valueOf(index))) {
+                continue;
+            } else {
+                break;
+            }
+        }
+
+         for (int i = 2; i < apps_dirs.length+2; i++) {
+             configs_ini.put(config_name, String.valueOf(index+i), apps_dirs[i-2]);
+         }
+
+        configs_ini.store();
+    }
+
 
     public void remove_config(String config_name) throws IOException {
         Wini configs_ini = new Wini(new File(default_config_path));
