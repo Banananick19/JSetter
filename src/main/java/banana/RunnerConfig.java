@@ -9,59 +9,40 @@ public class RunnerConfig {
     protected static String default_config_path = "D:\\config.ini";
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         //
     }
-    public void run_config(String config_name) throws IOException {
-        Wini configs_ini = new Wini(new File(default_config_path));
 
-        for (int app_number = 0;;app_number++) {
-            String app_path = configs_ini.get(config_name, String.valueOf(app_number));
-            if (app_path != null) {
-                String command = "cmd /c start " + app_path;
-                Process proc = Runtime.getRuntime().exec(command);
-            } else {
-                break;
-            }
+
+    public static void run_config(String config_name ) throws Exception {
+        ConfigParser config  = new ConfigParser();
+        config.read(new File(default_config_path));
+        for (String key: config.options(config_name)) {
+            System.out.println("cmd /c start \"\" " + "\"" + config.get(config_name, key) + "\"");
+            Process proc = Runtime.getRuntime().exec("cmd /c start \"\" " + "\"" + config.get(config_name, key) + "\"");
         }
+
     }
 
-    public void make_config(String config_name, String[] apps_dirs) throws IOException {
-        Wini configs_ini = new Wini(new File(default_config_path));
-
-        for (int i = 0; i < apps_dirs.length; i++) {
-            configs_ini.put(config_name, String.valueOf(i), apps_dirs[i]);
-        }
-        configs_ini.store();
+    public static void make_config(String config_name, String[] apps) {
+        //
     }
 
-    public void append_to_config(String config_name, String[] apps_dirs) throws IOException {
-        Wini configs_ini = new Wini(new File(default_config_path));
-
-        Map<String, String> apps = configs_ini.get(config_name);
-        System.out.println(apps);
-
+    public static void append_to_config(String config_name, String[] apps) throws Exception {
         int index = 0;
+        ConfigParser config  = new ConfigParser();
+        config.read(new InputStreamReader(new FileInputStream(new File(default_config_path)), "UTF-8"));
+        for (String key : config.options(config_name)) index++;
 
-        for (;;index++) {
-            if (apps.containsKey(String.valueOf(index))) {
-                continue;
-            } else {
-                break;
-            }
+
+        for (String app: apps) {
+            config.set(config_name, String.valueOf(index), app);
+            index++;
         }
-
-         for (int i = 2; i < apps_dirs.length+2; i++) {
-             configs_ini.put(config_name, String.valueOf(index+i), apps_dirs[i-2]);
-         }
-
-        configs_ini.store();
+        config.write(new File(default_config_path));
     }
 
-
-    public void remove_config(String config_name) throws IOException {
-        Wini configs_ini = new Wini(new File(default_config_path));
-        configs_ini.remove(configs_ini.get(config_name));
-        configs_ini.store();
+    public static void remove_config(String config_name) {
+        //
     }
 }
