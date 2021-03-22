@@ -53,9 +53,9 @@
           <configuration>
             <mainClass>banana.Main</mainClass>
             <arguments>
-              <argument>rem</argument>
-                <argument>2</argument>
-              <argument>C:\\Users\\andre\\OneDrive\\Рабочий стол\\programs\\books\\59192_8f10f9c64c0b84b8fbb177e8da728b9d.pdf</argument>
+              <argument>ren_con</argument>
+                <argument>1</argument>
+              <argument>2</argument>
             </arguments>
           </configuration>
         </plugin>
