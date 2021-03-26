@@ -51,11 +51,12 @@
           <artifactId>exec-maven-plugin</artifactId>
           <version>1.4.0</version>
           <configuration>
-            <mainClass>banana.Main</mainClass>
+            <mainClass>banana.GuiMaker</mainClass>
             <arguments>
               <argument>ren_con</argument>
                 <argument>1</argument>
-              <argument>2</argument>
+              <argument>2
+              </argument>
             </arguments>
           </configuration>
         </plugin>

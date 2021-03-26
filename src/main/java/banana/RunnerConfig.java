@@ -3,6 +3,7 @@ package banana;
 import org.ini4j.*;
 import java.io.*;
 import java.util.Map;
+import java.util.List;
 
 
 public class RunnerConfig {
@@ -66,4 +67,11 @@ public class RunnerConfig {
         removeConfig(old_config_name);
         config.write(new File(default_config_path));
     }
+
+    public static List<String> getSections() throws Exception {
+        config.read(new File(default_config_path));
+        List<String> sections = config.sections();
+        return sections;
+    }
+
 }
