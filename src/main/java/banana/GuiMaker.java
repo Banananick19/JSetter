@@ -1,6 +1,7 @@
 package banana;
 
 import java.util.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -9,7 +10,8 @@ import banana.*;
 
 public class GuiMaker {
 
-    private static JFrame mainFrame = new JFrame("Setter");
+    public static JFrame mainFrame = new JFrame("Setter");
+    private static JPanel widgetsPanel = new JPanel();
     private static RunnerConfig runnerConfig = new RunnerConfig();
     private static List<JComponent> labels = new ArrayList<JComponent>(); // contains elements in frame; need for delete elements from frame for make new page.
     private static Map<String, String> menuButtons = new HashMap<>();
@@ -18,6 +20,7 @@ public class GuiMaker {
     public static void main(String[] args) throws Exception {
         { // здесь кАроче кнопки менюшки
             menuButtons.put("configs", "mainPage");
+            menuButtons.put("make", "configMaker");
         }
         createGui();
     }
@@ -32,6 +35,9 @@ public class GuiMaker {
     protected static void createMenu() throws Exception {
         JMenu menu = new JMenu("options");
         JMenuBar menuBar = new JMenuBar();
+        widgetsPanel.setBounds(0, 0, 400, 400);
+        widgetsPanel.setBackground(Color.GREEN);
+        mainFrame.add(widgetsPanel);
         for (Map.Entry<String, String> entry: menuButtons.entrySet()) {
             final String key = entry.getKey();
             final String value = entry.getValue();
@@ -39,10 +45,11 @@ public class GuiMaker {
             menu.add(button);
             final FramesMaker framesMaker = new FramesMaker();
             final Method action = getMethod(value);
+
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e){
                     try {
-                        action.invoke(framesMaker, mainFrame);
+                        action.invoke(framesMaker, widgetsPanel, mainFrame);
                     } catch (Exception ex) {
                         System.out.println(ex);
                     }
@@ -52,6 +59,7 @@ public class GuiMaker {
         }
         menuBar.add(menu);
         mainFrame.setJMenuBar(menuBar);
+
     }
 
     protected static Method getMethod(String methodName) {
