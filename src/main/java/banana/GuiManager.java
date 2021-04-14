@@ -16,8 +16,8 @@ public class GuiManager {
 
     public void makeWindow() {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         mainFrame.setSize(Config.wWidth, Config.wHeight);
-        mainFrame.setLayout(null);
         mainFrame.setVisible(true);
         makeMenu();
     }

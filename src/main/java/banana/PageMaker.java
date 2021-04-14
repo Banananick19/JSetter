@@ -5,6 +5,7 @@ import java.util.*;
 import java.io.File;
 import java.awt.Container;
 import java.awt.event.*;
+import java.awt.BorderLayout;
 import banana.*;
 
 public class PageMaker {
@@ -15,6 +16,11 @@ public class PageMaker {
 
     public void clearWindow(Container mainFrame) throws Exception {
         mainFrame.removeAll();
+        mainFrame.repaint();
+        mainFrame.revalidate();
+    }
+
+    public void updateWindow(Container mainFrame) throws Exception {
         mainFrame.repaint();
         mainFrame.revalidate();
     }
@@ -37,16 +43,18 @@ public class PageMaker {
 
                 }
             });
-            button.setBounds(10, offSet*count, 100, 30);
-            mainFrame.add(button);
+            mainFrame.add(BorderLayout.CENTER, button);
         }
+        updateWindow(mainFrame);
     }
 
     public void configsMakePage(Container mainFrame) throws Exception {
         clearWindow(mainFrame);
         final ConfigsManager configsManager = new ConfigsManager();
         JButton chooseFilesButton = new JButton("Choose apps");
-        chooseFilesButton.setBounds(10, 10, 100, 20);
+        JPanel chooseFilesButtonPanel = new JPanel();
+        chooseFilesButtonPanel.add(chooseFilesButton);
+        mainFrame.add(chooseFilesButtonPanel);
         chooseFilesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 try {
@@ -61,12 +69,14 @@ public class PageMaker {
 
             }
         });
-        mainFrame.add(chooseFilesButton);
-        final JTextField configNameTextField = new JTextField();
-        configNameTextField.setBounds(10, 40, 100, 30);
-        mainFrame.add(configNameTextField);
-        JButton submitButton = new JButton();
-        submitButton.setBounds(10, 80, 100, 30);
+        final JTextField configNameTextField = new JTextField(30);
+        JPanel configNameTextFieldPanel = new JPanel();
+        configNameTextFieldPanel.add(configNameTextField);
+        mainFrame.add(configNameTextFieldPanel);
+        JButton submitButton = new JButton("Submit");
+        JPanel submitButtonPanel = new JPanel();
+        submitButtonPanel.add(submitButton);
+        mainFrame.add(submitButtonPanel);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 try {
@@ -83,7 +93,7 @@ public class PageMaker {
 
             }
         });
-        mainFrame.add(submitButton);
+        updateWindow(mainFrame);
 
     }
 }
