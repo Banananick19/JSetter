@@ -33,6 +33,7 @@ public class PageMaker {
         int count = 1;
         for (final String key : sections) {
             JButton button = new JButton(key);
+            button.setFont(Config.mainFont);
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e){
                     try {
@@ -52,6 +53,7 @@ public class PageMaker {
         clearWindow(mainFrame);
         final ConfigsManager configsManager = new ConfigsManager();
         JButton chooseFilesButton = new JButton("Choose apps");
+        chooseFilesButton.setFont(Config.mainFont);
         JPanel chooseFilesButtonPanel = new JPanel();
         chooseFilesButtonPanel.add(chooseFilesButton);
         mainFrame.add(chooseFilesButtonPanel);
@@ -70,10 +72,12 @@ public class PageMaker {
             }
         });
         final JTextField configNameTextField = new JTextField(30);
+        configNameTextField.setFont(Config.mainFont);
         JPanel configNameTextFieldPanel = new JPanel();
         configNameTextFieldPanel.add(configNameTextField);
         mainFrame.add(configNameTextFieldPanel);
         JButton submitButton = new JButton("Submit");
+        submitButton.setFont(Config.mainFont);
         JPanel submitButtonPanel = new JPanel();
         submitButtonPanel.add(submitButton);
         mainFrame.add(submitButtonPanel);

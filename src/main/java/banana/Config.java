@@ -2,6 +2,7 @@ package banana;
 
 import java.util.*;
 import java.io.File;
+import java.awt.Font;
 import java.nio.file.Paths;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
@@ -13,6 +14,7 @@ public class Config {
     final static int wWidth = 400;
     final static int wHeight = 400;
     final static String mainWindowName = "JSetter";
+    final static Font mainFont = new Font("Arial", Font.BOLD, 20);
     // end window settings
     // mainMenu
     final static String menuName = "file";

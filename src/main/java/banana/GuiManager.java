@@ -18,7 +18,6 @@ public class GuiManager {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         mainFrame.setSize(Config.wWidth, Config.wHeight);
-        mainFrame.setVisible(true);
         makeMenu();
     }
 
@@ -44,6 +43,7 @@ public class GuiManager {
         }
         menuBar.add(menu);
         mainFrame.setJMenuBar(menuBar);
+        mainFrame.setVisible(true);
     }
 
 
