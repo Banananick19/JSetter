@@ -16,11 +16,16 @@ public class Config {
     final static String mainWindowName = "JSetter";
     final static Font mainFont = new Font("Arial", Font.BOLD, 20);
     // end window settings
+    // messages
+    final static String errorMakeTitle = "Error";
+    final static String errorMakeMessage = "Fill the data fieds";
+    // end messages
     // mainMenu
     final static String menuName = "file";
     final static Map<String, String> menuButtons = Map.ofEntries(
-                Map.entry("configs", "configsPage"),
-                Map.entry("make", "configsMakePage")
+            Map.entry("configs", "configsPage"),
+            Map.entry("make", "configsMakePage"),
+            Map.entry("update", "configsUpdatePage")
     );
     //end mainMenu
     final static String ConfigPath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "configs.ini"; // получение пути до Main
@@ -31,13 +36,13 @@ public class Config {
     }
 
     public static void verifyFiles() {
-            try {
-                File ConfigFile = new File(ConfigPath);
-                if (ConfigFile.createNewFile()) {
-                    System.out.println("Configs file created");
-                }
-            } catch (Exception e) {
-                System.out.println(e);
+        try {
+            File ConfigFile = new File(ConfigPath);
+            if (ConfigFile.createNewFile()) {
+                System.out.println("Configs file created");
             }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

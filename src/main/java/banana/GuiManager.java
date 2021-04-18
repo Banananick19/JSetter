@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.lang.reflect.Method;
+
 import banana.*;
 
 public class GuiManager {
@@ -24,18 +25,21 @@ public class GuiManager {
     protected void makeMenu() {
         JMenu menu = new JMenu(Config.menuName);
         JMenuBar menuBar = new JMenuBar();
-        for (Map.Entry<String, String> entry: Config.menuButtons.entrySet()) {
+        PageMaker pageMaker = new PageMaker();
+        Container contentPane = mainFrame.getContentPane();
+        for (Map.Entry<String, String> entry : Config.menuButtons.entrySet()) {
             final String key = entry.getKey();
             final String value = entry.getValue();
             final Method action = getMethod(PageMaker.class, value);
             JMenuItem button = new JMenuItem(key);
             menu.add(button);
             button.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e){
+                public void actionPerformed(ActionEvent e) {
                     try {
-                        action.invoke(new PageMaker(), mainFrame.getContentPane());
+                        action.invoke(pageMaker, contentPane);
                     } catch (Exception ex) {
-                        System.out.println(ex);
+                        System.out.println("makeMenu");
+                        ex.printStackTrace();
                     }
 
                 }
@@ -60,6 +64,7 @@ public class GuiManager {
             }
 
         } catch (Exception e) {
+            System.out.println("getMethod");
             e.printStackTrace();
         }
         return null;
