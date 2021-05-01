@@ -6,19 +6,17 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.lang.reflect.Method;
 
-import banana.*;
-
-public class GuiManager {
-    final JFrame mainFrame = new JFrame(Config.mainWindowName);
+public class GuiManager extends JFrame {
 
     public static void main(String[] args) {
 
     }
 
-    public void makeWindow() {
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
-        mainFrame.setSize(Config.wWidth, Config.wHeight);
+    public GuiManager() {
+        super(Config.mainWindowName);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setSize(Config.wWidth, Config.wHeight);
         makeMenu();
     }
 
@@ -26,7 +24,7 @@ public class GuiManager {
         JMenu menu = new JMenu(Config.menuName);
         JMenuBar menuBar = new JMenuBar();
         PageMaker pageMaker = new PageMaker();
-        Container contentPane = mainFrame.getContentPane();
+        Container contentPane = getContentPane();
         for (Map.Entry<String, String> entry : Config.menuButtons.entrySet()) {
             final String key = entry.getKey();
             final String value = entry.getValue();
@@ -38,7 +36,6 @@ public class GuiManager {
                     try {
                         action.invoke(pageMaker, contentPane);
                     } catch (Exception ex) {
-                        System.out.println("makeMenu");
                         ex.printStackTrace();
                     }
 
@@ -46,8 +43,8 @@ public class GuiManager {
             });
         }
         menuBar.add(menu);
-        mainFrame.setJMenuBar(menuBar);
-        mainFrame.setVisible(true);
+        setJMenuBar(menuBar);
+        setVisible(true);
     }
 
 
@@ -63,9 +60,8 @@ public class GuiManager {
 
             }
 
-        } catch (Exception e) {
-            System.out.println("getMethod");
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return null;
     }

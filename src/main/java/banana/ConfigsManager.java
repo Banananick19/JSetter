@@ -1,13 +1,11 @@
 package banana;
 
-import banana.*;
-
 import java.io.*;
 
 import java.util.Map;
 import java.util.List;
 
-import org.ini4j.*;
+import org.ini4j.ConfigParser;
 
 
 public class ConfigsManager {
@@ -22,8 +20,7 @@ public class ConfigsManager {
     public static void runConfig(String config_name) throws Exception {
         config.read(new File(Config.ConfigPath));
         for (String key : config.options(config_name)) {
-            System.out.println("cmd /c start \"\" " + "\"" + config.get(config_name, key) + "\"");
-            Process proc = Runtime.getRuntime().exec("cmd /c start \"\" " + "\"" + config.get(config_name, key) + "\"");
+            Runtime.getRuntime().exec("cmd /c start \"\" " + "\"" + config.get(config_name, key) + "\"");
         }
 
     }

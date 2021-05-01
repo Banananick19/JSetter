@@ -8,8 +8,6 @@ import java.awt.Container;
 import java.awt.event.*;
 import java.awt.BorderLayout;
 
-import banana.*;
-
 public class PageMaker {
     protected File[] updataFiles;
     protected String updataConfigName;
@@ -43,7 +41,7 @@ public class PageMaker {
                     try {
                         configsManager.runConfig(key);
                     } catch (Exception ex) {
-                        System.out.println(ex);
+                        ex.printStackTrace();
                     }
 
                 }
@@ -69,7 +67,7 @@ public class PageMaker {
                     fileChooser.showOpenDialog(mainFrame);
                     updataFiles = fileChooser.getSelectedFiles();
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    ex.printStackTrace();
                 }
 
             }
@@ -101,7 +99,7 @@ public class PageMaker {
                     }
                     configsManager.makeConfig(configNameTextField.getText(), filesPaths);
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    ex.printStackTrace();
                 }
 
             }
@@ -125,7 +123,7 @@ public class PageMaker {
                     fileChooser.showOpenDialog(mainFrame);
                     updataFiles = fileChooser.getSelectedFiles();
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    ex.printStackTrace();
                 }
 
             }
@@ -136,11 +134,8 @@ public class PageMaker {
         configsList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent evt) {
-                if (!evt.getValueIsAdjusting()) { // Игнорируем событие mouseDown
-                    // Получаем выбранное значение
+                if (!evt.getValueIsAdjusting()) {
                     String val = configsList.getSelectedValue().toString();
-                    System.out.println(val);
-                    // Устанавливаем полученное значение в текстовое поле
                     updataConfigName = val;
                 }
             }
@@ -153,7 +148,6 @@ public class PageMaker {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println(updataConfigName);
                     if ((updataFiles == null) | (updataConfigName.length() == 0)) {
                         JOptionPane.showMessageDialog(mainFrame.getParent(),
                                 Config.errorMakeMessage,
@@ -168,8 +162,7 @@ public class PageMaker {
                     }
                     configsManager.appendToConfig(updataConfigName, filesPaths);
                 } catch (Exception ex) {
-                    System.out.println("updatePage");
-                    System.out.println(ex);
+                    ex.printStackTrace();
                 }
 
             }

@@ -7,8 +7,6 @@ import java.nio.file.Paths;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 
-import banana.*;
-
 public class Config {
     // window settings
     final static int wWidth = 400;
@@ -41,8 +39,8 @@ public class Config {
             if (ConfigFile.createNewFile()) {
                 System.out.println("Configs file created");
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
